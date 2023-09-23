@@ -112,7 +112,6 @@ export default function RegisterComponent() {
 						</section>
 						<Blur position="-right-20 -bottom-20 opacity-0 md:opacity-100" />
 						<section className="w-[100%] mx-auto lg:w-[56%]">
-							{/* <Atropos activeOffset={5} shadowScale={0} shadow={false}> */}
 							<div className="animate__backInRight animate__animated p-8 lg:bg-white/[0.03] lg:shadow-lg lg:py-20 lg:px-20 lg:backdrop-blur-[1.5px] h-full rounded-[4px] relative sm:border border-solid border-[rgba(255_225_255/0.02)]">
 								<div className="v-title hidden lg:block">
 									<h1 className="text-secondary tracking-tight font-semibold cd text-start text-3xl">Register</h1>

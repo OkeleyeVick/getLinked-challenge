@@ -25,8 +25,6 @@ const Select = ({
 		});
 	}
 
-	console.log(dropdownData);
-
 	return (
 		<div className="relative">
 			{label && (
