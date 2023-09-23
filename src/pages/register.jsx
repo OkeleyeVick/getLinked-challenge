@@ -176,7 +176,7 @@ export default function RegisterComponent() {
 											placeholder="Select your category"
 											variantPlaceholder={true}
 											icon={"lucide:chevron-down"}
-											dropdownData={data && data}
+											dropdownData={data ?? fallbackData}
 											dropdown={true}
 										/>
 										<GroupSize
@@ -224,3 +224,5 @@ export default function RegisterComponent() {
 }
 
 const groupSize = [10, 20, 30];
+
+const fallbackData = ["MOBILE", "WEB", "BACKEND"];
