@@ -108,7 +108,7 @@ export default function LandingPageComponent() {
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-y-8 items-center">
 							<div className="v-content relative lg:w-3/4 mx-auto">
 								<div className="v-title-container">
-									<h1 className="text-white animate__animated animate__slow animate__bounceInLeft text-center lg:text-start text-3xl s499:text-[2.8rem] lg:text-[3rem] leading-10 cd font-extrabold relative">
+									<h1 className="text-white animate__animated animate__slow animate__bounceInLeft text-center md:text-start text-3xl s499:text-[2.8rem] lg:text-[3rem] leading-10 cd font-extrabold relative">
 										<Star style="w-8 h-8 absolute left-8 -top-1/4 rotate text-white" />
 										<span className="relative">
 											getlinked Tech
