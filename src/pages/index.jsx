@@ -72,7 +72,7 @@ export default function LandingPageComponent() {
 			<div className="relative isolate overflow-hidden">
 				<Blur scale="scale-[1.3]" position="left-1/4 top-12 -translate-x-44" />
 				<Header />
-				<main className="flex-grow text-white/40 mt-20 lg:mt-10">
+				<main className="flex-grow text-white/40 pt-20 lg:pt-10 border-t border-slate-50/10">
 					<Star style="w-5 h-5 absolute left-8 top-1/4 rotate text-white" />
 					<div className="v-section opacity-50">
 						<span className="v-star"></span>
