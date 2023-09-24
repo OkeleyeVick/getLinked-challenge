@@ -20,6 +20,7 @@ export default function ContactComponent() {
 	useDocumentTitle("Contact | getLinked");
 	const goBack = useGoBack();
 	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState(false);
 	const [success, setIsSuccess] = useState(false);
 
 	const [userDetails, setUserDetails] = useState({
@@ -50,6 +51,7 @@ export default function ContactComponent() {
 			})
 			.then((response) => {
 				setIsLoading(false);
+				setError(false);
 				setUserDetails({
 					first_name: "",
 					email: "",
@@ -59,11 +61,12 @@ export default function ContactComponent() {
 
 				if (response.status === 201 || response?.status === "ok" || response.status === 200) {
 					setIsSuccess(true);
+					setError(false);
 				}
 			})
 			.catch((error) => {
 				setIsLoading(false);
-				console.error("Error:", error);
+				setError(true);
 			});
 	};
 
@@ -196,6 +199,7 @@ export default function ContactComponent() {
 			</div>
 			{success && <Modal />}
 			{isLoading && <Loader />}
+			{error && <Error />}
 		</AnimatedWrapper>
 	);
 }

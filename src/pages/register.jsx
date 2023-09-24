@@ -7,7 +7,7 @@ import AnimatedWrapper from "../components/wrapper";
 import Select, { GroupSize } from "../components/dropdown";
 import { useEffect, useState } from "react";
 import useDocumentTitle from "../hooks/useDocumentTitle";
-import Modal from "../components/Modal";
+import Modal, { ErrorModal } from "../components/Modal";
 import axios from "axios";
 import { Loader } from "../components/layout/sidebar";
 import Star, { DoubleStars } from "../components/svg_icons";
@@ -21,6 +21,7 @@ export default function RegisterComponent() {
 	const [data, setData] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [success, setIsSuccess] = useState(false);
+	const [error, setError] = useState(true);
 	const [userDetails, setUserDetails] = useState({
 		team_name: "",
 		phone_number: "",
@@ -62,6 +63,7 @@ export default function RegisterComponent() {
 			})
 			.then((response) => {
 				setIsLoading(false);
+				setError(false)
 				setUserDetails({
 					team_name: "",
 					phone_number: "",
@@ -74,11 +76,12 @@ export default function RegisterComponent() {
 
 				if (response.status === 201 || response?.status === "ok" || response.status === 200) {
 					setIsSuccess(true);
+					setError(false);
 				}
 			})
 			.catch((error) => {
 				setIsLoading(false);
-				console.error("Error:", error);
+				setError(false)
 			});
 	};
 
@@ -198,6 +201,7 @@ export default function RegisterComponent() {
 											<input
 												type="checkbox"
 												name=""
+												required
 												id=""
 												className="w-6 h-4 s499:w-4 s499:h-4 mt-[2px] bg-transparent cursor-pointer checked:bg-primary checked:border-primary appearance-none border-[1.5px] border-solid border-white/70 rounded-sm v-custom-checkbox"
 											/>
@@ -218,6 +222,7 @@ export default function RegisterComponent() {
 
 			{success && <Modal />}
 			{isLoading && <Loader />}
+			{error && <ErrorModal />}
 		</AnimatedWrapper>
 	);
 }

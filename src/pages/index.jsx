@@ -72,7 +72,7 @@ export default function LandingPageComponent() {
 			<div className="relative isolate overflow-hidden">
 				<Blur scale="scale-[1.3]" position="left-1/4 top-12 -translate-x-44" />
 				<Header />
-				<main className="flex-grow text-white/40 pt-20 lg:pt-10 border-t border-slate-50/10">
+				<main className="flex-grow text-white/40 pt-24 lg:pt-10 border-t border-solid border-slate-50/30 lg:border-slate-50/10">
 					<Star style="w-5 h-5 absolute left-8 top-1/4 rotate text-white" />
 					<div className="v-section opacity-50">
 						<span className="v-star"></span>
@@ -108,7 +108,7 @@ export default function LandingPageComponent() {
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-y-8 items-center">
 							<div className="v-content relative lg:w-3/4 mx-auto">
 								<div className="v-title-container">
-									<h1 className="text-white animate__animated animate__slow animate__bounceInLeft text-center md:text-start text-3xl s499:text-[2.8rem] lg:text-[3rem] leading-10 cd font-extrabold relative">
+									<h1 className="text-white animate__animated animate__slow animate__bounceInLeft text-center md:!text-start text-3xl s499:text-[2.8rem] lg:text-[3rem] leading-10 cd font-extrabold relative">
 										<Star style="w-8 h-8 absolute left-8 -top-1/4 rotate text-white" />
 										<span className="relative">
 											getlinked Tech
@@ -129,14 +129,14 @@ export default function LandingPageComponent() {
 											</span>
 										</span>
 									</h1>
-									<div className="mont animate__animated animate__slow  animate__bounceInLeft flex flex-col items-center text-center lg:text-start lg:items-start mt-4">
+									<div className="mont animate__animated animate__slow  animate__bounceInLeft flex flex-col items-center text-center md:!text-start md:!items-start mt-4">
 										<span className="text-[.9rem] text-white">
 											Participate in getlinked tech Hackathon 2023 <br />
 											stand a chance to win a Big prize
 										</span>
 									</div>
 								</div>
-								<div className="mt-8 flex flex-col gap-y-8 items-center text-center lg:text-start lg:items-start">
+								<div className="mt-8 flex flex-col gap-y-8 items-center text-center md:!text-start md:!items-start">
 									<AnchorLink
 										style="animate__animated animate__slow  animate__bounceInLeft register_link mont w-max font-medium text-white text-[.8rem] py-4 rounded-[3px] px-12"
 										href="/register">
@@ -310,7 +310,7 @@ export default function LandingPageComponent() {
 								</div>
 								<div
 									data-aos="fade-left"
-									className="grid grid-cols-3 place-content-center -translate-x-15 xs:-translate-x-12 sm:-translate-x-6 gap-x-6 sm:gap-x-10 medals-container s499:translate-y-10 s499:-ml-3 sm:translate-y-24 s499:mt-28 md:ml-0 -ml-14">
+									className="grid grid-cols-3 place-content-center -translate-x-15 xs:!-translate-x-12 sm:!-translate-x-0 md:!translate-x-5 gap-x-6 sm:gap-x-10 medals-container s499:translate-y-10 s499:-ml-3 sm:translate-y-24 s499:mt-28 md:ml-0 -ml-14">
 									<DoubleStars style="absolute bottom-0 w-8 h-8 z-[-1] text-white" />
 									{medals.map((eachMedal, index) => (
 										<MedalCard
