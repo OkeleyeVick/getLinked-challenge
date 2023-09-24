@@ -18,7 +18,7 @@ const mainURL = `${baseUrl}/hackathon/registration`;
 export default function RegisterComponent() {
 	useDocumentTitle("Register | getLinked");
 
-	const [data, setData] = useState(null);
+	const [data, setData] = useState();
 	const [isLoading, setIsLoading] = useState(false);
 	const [success, setIsSuccess] = useState(false);
 	const [error, setError] = useState(false);
@@ -52,8 +52,8 @@ export default function RegisterComponent() {
 
 	useEffect(() => {
 		const handleGetData = async () => {
-			const data = await fetch(`${baseUrl}/hackathon/categories-list`);
-			const result = await data.json();
+			const res = await fetch(`${baseUrl}/hackathon/categories-list`);
+			const result = await res.json();
 			const dropdownData = result.map((data) => data.name);
 			if (dropdownData) {
 				setData(dropdownData);
@@ -208,7 +208,7 @@ export default function RegisterComponent() {
 											placeholder="Select your category"
 											variantPlaceholder={true}
 											icon={"lucide:chevron-down"}
-											dropdownData={data}
+											dropdownData={data && data}
 											dropdown={true}
 										/>
 										<GroupSize
