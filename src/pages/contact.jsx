@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import AnchorLink from "../components/AnchorLink";
 import Blur from "../components/Blur";
 import Icon from "../components/Icon";
@@ -9,7 +9,7 @@ import useGoBack from "../hooks/useGoBack.jsx";
 import useDocumentTitle from "../hooks/useDocumentTitle";
 import TypewriterComponent from "typewriter-effect";
 import axios from "axios";
-import Modal, { ErrorModal } from "../components/Modal";
+import Modal from "../components/Modal";
 import { Loader } from "../components/layout/sidebar";
 import Star, { DoubleStars } from "../components/svg_icons";
 
@@ -20,9 +20,7 @@ export default function ContactComponent() {
 	useDocumentTitle("Contact | getLinked");
 	const goBack = useGoBack();
 	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState(false);
 	const [success, setIsSuccess] = useState(false);
-	const [errorText, setErrorText] = useState("");
 
 	const [userDetails, setUserDetails] = useState({
 		first_name: "",
@@ -30,10 +28,6 @@ export default function ContactComponent() {
 		message: "",
 		phone_number: "",
 	});
-
-	const nameRef = useRef(null);
-	const mailRef = useRef(null);
-	const messageRef = useRef(null);
 
 	function handleInput(e) {
 		setUserDetails((prevValue) => {
@@ -56,8 +50,6 @@ export default function ContactComponent() {
 			})
 			.then((response) => {
 				setIsLoading(false);
-				setErrorText("");
-				setError(false);
 				setUserDetails({
 					first_name: "",
 					email: "",
@@ -67,13 +59,11 @@ export default function ContactComponent() {
 
 				if (response.status === 201 || response?.status === "ok" || response.status === 200) {
 					setIsSuccess(true);
-					setError(false);
 				}
 			})
 			.catch((error) => {
 				setIsLoading(false);
-				setErrorText(error);
-				setError(true);
+				console.error("Error:", error);
 			});
 	};
 
@@ -163,7 +153,6 @@ export default function ContactComponent() {
 											name="first_name"
 											onChangeFunc={handleInput}
 											type="text"
-											inputRef={nameRef}
 											value={userDetails.first_name}
 											placeholder="First Name"
 											variantPlaceholder={true}
@@ -172,7 +161,6 @@ export default function ContactComponent() {
 											name="email"
 											value={userDetails.email}
 											type="email"
-											inputRef={mailRef}
 											onChangeFunc={handleInput}
 											placeholder="Mail"
 											variantPlaceholder={true}
@@ -180,7 +168,6 @@ export default function ContactComponent() {
 										<textarea
 											placeholder="Message"
 											name="message"
-											ref={messageRef}
 											value={userDetails.message}
 											onChange={handleInput}
 											className="w-full rounded-md text-[.8rem] transition ease-in-out duration-300 font-normal placeholder:[word-spacing:2px]  placeholder:text-[.78rem] px-5 bg-white/[0.035] placeholder:text-white/90 focus:border-secondary placeholder:tracking-wide placeholder:font-medium outline-none focus:outline-none caret-secondary border-[1.5px] border-white/70 min-h-[7.5rem] py-4 resize-none"></textarea>
@@ -209,7 +196,6 @@ export default function ContactComponent() {
 			</div>
 			{success && <Modal />}
 			{isLoading && <Loader />}
-			{(error || errorText) && <ErrorModal error={errorText} />}
 		</AnimatedWrapper>
 	);
 }

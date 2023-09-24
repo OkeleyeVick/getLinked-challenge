@@ -5,9 +5,9 @@ import Blur from "../components/Blur";
 import Header from "../components/layout/header";
 import AnimatedWrapper from "../components/wrapper";
 import Select, { GroupSize } from "../components/dropdown";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import useDocumentTitle from "../hooks/useDocumentTitle";
-import Modal, { ErrorModal } from "../components/Modal";
+import Modal from "../components/Modal";
 import axios from "axios";
 import { Loader } from "../components/layout/sidebar";
 import Star, { DoubleStars } from "../components/svg_icons";
@@ -18,11 +18,9 @@ const mainURL = `${baseUrl}/hackathon/registration`;
 export default function RegisterComponent() {
 	useDocumentTitle("Register | getLinked");
 
-	const [data, setData] = useState();
+	const [data, setData] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [success, setIsSuccess] = useState(false);
-	const [error, setError] = useState(false);
-	const [errorText, setErrorText] = useState("");
 	const [userDetails, setUserDetails] = useState({
 		team_name: "",
 		phone_number: "",
@@ -32,14 +30,6 @@ export default function RegisterComponent() {
 		group_size: "",
 	});
 
-	const nameRef = useRef("");
-	const phoneRef = useRef("");
-	const emailRef = useRef("");
-	const projectRef = useRef("");
-	const categoryRef = useRef("");
-	const sizeRef = useRef("");
-
-	const fallbackData = ["MOBILE", "WEB", "BACKEND"];
 	function handleInput(e) {
 		setUserDetails((prevValue) => {
 			return {
@@ -51,14 +41,10 @@ export default function RegisterComponent() {
 
 	useEffect(() => {
 		const handleGetData = async () => {
-			const res = await fetch(`${baseUrl}/hackathon/categories-list`);
-			const result = await res.json();
+			const data = await fetch(`${baseUrl}/hackathon/categories-list`);
+			const result = await data.json();
 			const dropdownData = result.map((data) => data.name);
-			if (dropdownData) {
-				setData(dropdownData);
-			} else {
-				setData(fallbackData);
-			}
+			setData(dropdownData);
 		};
 
 		handleGetData();
@@ -76,8 +62,6 @@ export default function RegisterComponent() {
 			})
 			.then((response) => {
 				setIsLoading(false);
-				setError(false);
-				setErrorText("");
 				setUserDetails({
 					team_name: "",
 					phone_number: "",
@@ -90,13 +74,11 @@ export default function RegisterComponent() {
 
 				if (response.status === 201 || response?.status === "ok" || response.status === 200) {
 					setIsSuccess(true);
-					setError(false);
 				}
 			})
 			.catch((error) => {
 				setIsLoading(false);
-				setErrorText(error);
-				setError(false);
+				console.error("Error:", error);
 			});
 	};
 
@@ -153,7 +135,6 @@ export default function RegisterComponent() {
 											onChangeFunc={handleInput}
 											label="Team's name"
 											value={userDetails.team_name}
-											inputRef={nameRef}
 											type="text"
 											placeholder="Enter the name of your group"
 										/>
@@ -163,7 +144,6 @@ export default function RegisterComponent() {
 											onChangeFunc={handleInput}
 											value={userDetails.phone_number}
 											label="Phone"
-											inputRef={phoneRef}
 											inputmode="numeric"
 											type="tel"
 											placeholder="Enter your phone number"
@@ -173,7 +153,6 @@ export default function RegisterComponent() {
 											onChangeFunc={handleInput}
 											label="Email"
 											value={userDetails.email}
-											inputRef={emailRef}
 											inputmode="text"
 											type="email"
 											placeholder="Enter your email"
@@ -181,7 +160,6 @@ export default function RegisterComponent() {
 										<InputField
 											name="project_topic"
 											onChangeFunc={handleInput}
-											inputRef={projectRef}
 											label="Project topic"
 											value={userDetails.project_topic}
 											inputmode="text"
@@ -192,13 +170,12 @@ export default function RegisterComponent() {
 											func={setUserDetails}
 											label="Category"
 											name="category"
-											inputRef={categoryRef}
 											value={userDetails.category}
 											onChangeFunc={handleInput}
 											placeholder="Select your category"
 											variantPlaceholder={true}
 											icon={"lucide:chevron-down"}
-											dropdownData={data && data}
+											dropdownData={data ?? fallbackData}
 											dropdown={true}
 										/>
 										<GroupSize
@@ -206,7 +183,6 @@ export default function RegisterComponent() {
 											placeholder="Select"
 											dropdownData={groupSize}
 											name="group_size"
-											inputRef={sizeRef}
 											func={setUserDetails}
 											onChangeFunc={handleInput}
 											value={userDetails.group_size}
@@ -222,7 +198,6 @@ export default function RegisterComponent() {
 											<input
 												type="checkbox"
 												name=""
-												required
 												id=""
 												className="w-6 h-4 s499:w-4 s499:h-4 mt-[2px] bg-transparent cursor-pointer checked:bg-primary checked:border-primary appearance-none border-[1.5px] border-solid border-white/70 rounded-sm v-custom-checkbox"
 											/>
@@ -243,9 +218,10 @@ export default function RegisterComponent() {
 
 			{success && <Modal />}
 			{isLoading && <Loader />}
-			{(error || errorText) && <ErrorModal error={errorText} />}
 		</AnimatedWrapper>
 	);
 }
 
 const groupSize = [10, 20, 30];
+
+const fallbackData = ["MOBILE", "WEB", "BACKEND"];
