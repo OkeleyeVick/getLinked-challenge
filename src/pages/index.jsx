@@ -284,7 +284,7 @@ export default function LandingPageComponent() {
 						</div>
 					</section>
 					<section className="flex py-20 xs:mb-16 sm:mb-24 items-end flex-col xl:flex-row justify-center scale-[0.98] w-[85%] sm:w-[90%] xl:w-[86%] mx-auto relative gap-x-8 gap-y-16 lg:flex-row">
-						<div className="v-image w-full xl:w-[43%] relative">
+						<div className="v-image w-full xl:w-[43%] relative v-floating-image">
 							<Blur />
 							<div className={`v-image-container relative z-[1] mx-auto`} data-aos="zoom-in">
 								<img src={Trophy} alt={getPath(Trophy)} className="img-fluid mx-auto xl:mx-0" />
