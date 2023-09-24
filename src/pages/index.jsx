@@ -103,7 +103,7 @@ export default function LandingPageComponent() {
 						</div>
 					</div>
 
-					<section className="pt-10 s499:pt-20 relative w-[85%] sm:w-[90%] xl:w-[86%] mx-auto">
+					<section id="overview" className="pt-10 s499:pt-20 relative w-[85%] sm:w-[90%] xl:w-[86%] mx-auto">
 						<div className="shooting-star"></div>
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-y-8 items-center">
 							<div className="v-content relative lg:w-3/4 mx-auto">
@@ -231,7 +231,7 @@ export default function LandingPageComponent() {
 						</Section>
 					</div>
 					<Blur position="bottom-0 left-0" />
-					<div className="border-t border-slate-50/10">
+					<div id="faqs" className="border-t border-slate-50/10">
 						<Section>
 							<VContent>
 								<div className="scale-95 flex flex-col gap-y-7">
@@ -246,7 +246,9 @@ export default function LandingPageComponent() {
 							<VImage data="zoom-out" image={Thinking} width="md:w-11/12 v-floating-image" hasStar={true} hasIcon={true} />
 						</Section>
 					</div>
-					<section className="flex py-20 xs:mb-16 sm:mb-24 items-end flex-col justify-center scale-[0.98] w-[85%] sm:w-[90%] xl:w-[86%] mx-auto relative gap-x-8 gap-y-16">
+					<section
+						id="timeline"
+						className="flex py-20 xs:mb-16 sm:mb-24 items-end flex-col justify-center scale-[0.98] w-[85%] sm:w-[90%] xl:w-[86%] mx-auto relative gap-x-8 gap-y-16">
 						<div className="flex flex-col gap-4 items-center justify-center text-center mx-auto v-title-container w-full sm:w-7/12 md:w-6/12 lg:w-4/12 ">
 							<h1 data-aos="fade-up" className="cd text-white font-bold text-3xl tracking-wide">
 								Timeline
