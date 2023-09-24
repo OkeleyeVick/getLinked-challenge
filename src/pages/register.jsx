@@ -39,7 +39,6 @@ export default function RegisterComponent() {
 	const categoryRef = useRef("");
 	const sizeRef = useRef("");
 
-	const refs = [nameRef, phoneRef, emailRef, projectRef, categoryRef, sizeRef];
 	const fallbackData = ["MOBILE", "WEB", "BACKEND"];
 	function handleInput(e) {
 		setUserDetails((prevValue) => {
@@ -67,16 +66,7 @@ export default function RegisterComponent() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
-		refs.forEach((currentRef) => {
-			const thisSameRef = currentRef?.current?.value;
-			if (currentRef && (thisSameRef === "" || thisSameRef === null)) {
-				setIsLoading(false);
-				setErrorText("Fill all fields!");
-			}
-			setIsLoading(true);
-			setErrorText("");
-		});
+		setIsLoading(true);
 
 		axios
 			.post(mainURL, userDetails, {

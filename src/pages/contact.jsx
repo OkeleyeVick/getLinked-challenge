@@ -35,8 +35,6 @@ export default function ContactComponent() {
 	const mailRef = useRef(null);
 	const messageRef = useRef(null);
 
-	const refs = [nameRef, mailRef, messageRef];
-
 	function handleInput(e) {
 		setUserDetails((prevValue) => {
 			return {
@@ -48,15 +46,7 @@ export default function ContactComponent() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		refs.forEach((currentRef) => {
-			const thisSameRef = currentRef?.current?.value;
-			if (currentRef && (thisSameRef === "" || thisSameRef === null)) {
-				setIsLoading(false);
-				return setErrorText("Fill all fields!");
-			}
-			setIsLoading(true);
-			setErrorText("");
-		});
+		setIsLoading(true);
 
 		axios
 			.post(apiUrl, userDetails, {
