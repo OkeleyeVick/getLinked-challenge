@@ -54,7 +54,11 @@ export default function RegisterComponent() {
 			const data = await fetch(`${baseUrl}/hackathon/categories-list`);
 			const result = await data.json();
 			const dropdownData = result.map((data) => data.name);
-			setData(dropdownData);
+			if (dropdownData) {
+				setData(dropdownData);
+			} else {
+				setData(fallbackData);
+			}
 		};
 
 		handleGetData();
@@ -100,7 +104,7 @@ export default function RegisterComponent() {
 			})
 			.catch((error) => {
 				setIsLoading(false);
-				setErrorText(error);
+				setErrorText;
 				setError(false);
 			});
 	};
@@ -203,7 +207,7 @@ export default function RegisterComponent() {
 											placeholder="Select your category"
 											variantPlaceholder={true}
 											icon={"lucide:chevron-down"}
-											dropdownData={data ?? fallbackData}
+											dropdownData={data}
 											dropdown={true}
 										/>
 										<GroupSize
