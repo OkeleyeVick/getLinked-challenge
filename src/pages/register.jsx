@@ -40,6 +40,7 @@ export default function RegisterComponent() {
 	const sizeRef = useRef("");
 
 	const refs = [nameRef, phoneRef, emailRef, projectRef, categoryRef, sizeRef];
+	const fallbackData = ["MOBILE", "WEB", "BACKEND"];
 	function handleInput(e) {
 		setUserDetails((prevValue) => {
 			return {
@@ -71,7 +72,7 @@ export default function RegisterComponent() {
 			const thisSameRef = currentRef?.current?.value;
 			if (currentRef && (thisSameRef === "" || thisSameRef === null)) {
 				setIsLoading(false);
-				return setErrorText("Fill all fields!");
+				setErrorText("Fill all fields!");
 			}
 			setIsLoading(true);
 			setErrorText("");
@@ -104,7 +105,7 @@ export default function RegisterComponent() {
 			})
 			.catch((error) => {
 				setIsLoading(false);
-				setErrorText;
+				setErrorText(error);
 				setError(false);
 			});
 	};
@@ -258,5 +259,3 @@ export default function RegisterComponent() {
 }
 
 const groupSize = [10, 20, 30];
-
-const fallbackData = ["MOBILE", "WEB", "BACKEND"];
