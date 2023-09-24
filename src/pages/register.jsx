@@ -5,7 +5,7 @@ import Blur from "../components/Blur";
 import Header from "../components/layout/header";
 import AnimatedWrapper from "../components/wrapper";
 import Select, { GroupSize } from "../components/dropdown";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useDocumentTitle from "../hooks/useDocumentTitle";
 import Modal, { ErrorModal } from "../components/Modal";
 import axios from "axios";
@@ -21,7 +21,8 @@ export default function RegisterComponent() {
 	const [data, setData] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [success, setIsSuccess] = useState(false);
-	const [error, setError] = useState(true);
+	const [error, setError] = useState(false);
+	const [errorText, setErrorText] = useState("");
 	const [userDetails, setUserDetails] = useState({
 		team_name: "",
 		phone_number: "",
@@ -31,6 +32,14 @@ export default function RegisterComponent() {
 		group_size: "",
 	});
 
+	const nameRef = useRef("");
+	const phoneRef = useRef("");
+	const emailRef = useRef("");
+	const projectRef = useRef("");
+	const categoryRef = useRef("");
+	const sizeRef = useRef("");
+
+	const refs = [nameRef, phoneRef, emailRef, projectRef, categoryRef, sizeRef];
 	function handleInput(e) {
 		setUserDetails((prevValue) => {
 			return {
@@ -53,7 +62,16 @@ export default function RegisterComponent() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		setIsLoading(true);
+
+		refs.forEach((currentRef) => {
+			const thisSameRef = currentRef?.current?.value;
+			if (currentRef && (thisSameRef === "" || thisSameRef === null)) {
+				setIsLoading(false);
+				return setErrorText("Fill all fields!");
+			}
+			setIsLoading(true);
+			setErrorText("");
+		});
 
 		axios
 			.post(mainURL, userDetails, {
@@ -63,7 +81,8 @@ export default function RegisterComponent() {
 			})
 			.then((response) => {
 				setIsLoading(false);
-				setError(false)
+				setError(false);
+				setErrorText("");
 				setUserDetails({
 					team_name: "",
 					phone_number: "",
@@ -81,7 +100,8 @@ export default function RegisterComponent() {
 			})
 			.catch((error) => {
 				setIsLoading(false);
-				setError(false)
+				setErrorText(error);
+				setError(false);
 			});
 	};
 
@@ -138,6 +158,7 @@ export default function RegisterComponent() {
 											onChangeFunc={handleInput}
 											label="Team's name"
 											value={userDetails.team_name}
+											inputRef={nameRef}
 											type="text"
 											placeholder="Enter the name of your group"
 										/>
@@ -147,6 +168,7 @@ export default function RegisterComponent() {
 											onChangeFunc={handleInput}
 											value={userDetails.phone_number}
 											label="Phone"
+											inputRef={phoneRef}
 											inputmode="numeric"
 											type="tel"
 											placeholder="Enter your phone number"
@@ -156,6 +178,7 @@ export default function RegisterComponent() {
 											onChangeFunc={handleInput}
 											label="Email"
 											value={userDetails.email}
+											inputRef={emailRef}
 											inputmode="text"
 											type="email"
 											placeholder="Enter your email"
@@ -163,6 +186,7 @@ export default function RegisterComponent() {
 										<InputField
 											name="project_topic"
 											onChangeFunc={handleInput}
+											inputRef={projectRef}
 											label="Project topic"
 											value={userDetails.project_topic}
 											inputmode="text"
@@ -173,6 +197,7 @@ export default function RegisterComponent() {
 											func={setUserDetails}
 											label="Category"
 											name="category"
+											inputRef={categoryRef}
 											value={userDetails.category}
 											onChangeFunc={handleInput}
 											placeholder="Select your category"
@@ -186,6 +211,7 @@ export default function RegisterComponent() {
 											placeholder="Select"
 											dropdownData={groupSize}
 											name="group_size"
+											inputRef={sizeRef}
 											func={setUserDetails}
 											onChangeFunc={handleInput}
 											value={userDetails.group_size}
@@ -222,7 +248,7 @@ export default function RegisterComponent() {
 
 			{success && <Modal />}
 			{isLoading && <Loader />}
-			{error && <ErrorModal />}
+			{(error || errorText) && <ErrorModal error={errorText} />}
 		</AnimatedWrapper>
 	);
 }

@@ -57,7 +57,7 @@ export default function Modal() {
 	);
 }
 
-export function ErrorModal() {
+export function ErrorModal({ error }) {
 	let [isOpen, setIsOpen] = useState(true);
 
 	return (
@@ -85,7 +85,7 @@ export function ErrorModal() {
 							<img src="https://cdn3.iconfinder.com/data/icons/quality-control-10/512/QualityControlOne03.png" alt="" className="img-fluid" />
 						</div>
 						<div className="text-center flex flex-col items-center gap-y-0">
-							<h1 className="text-xl font-semibold">Error uploading details, try again!</h1>
+							<h1 className="text-xl font-semibold">{error ?? "Error uploading details, try again!"}</h1>
 
 							<div className=" opacity-80  stars-group-6"></div>
 							<div className=" opacity-80  stars-group-7"></div>
