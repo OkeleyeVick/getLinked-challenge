@@ -310,7 +310,7 @@ export default function LandingPageComponent() {
 								</div>
 								<div
 									data-aos="fade-left"
-									className="grid grid-cols-3 place-content-center -translate-x-15 xs:!-translate-x-12 sm:!-translate-x-0 md:!translate-x-5 gap-x-6 sm:gap-x-10 medals-container s499:translate-y-10 s499:-ml-3 sm:translate-y-24 s499:mt-28 md:ml-0 -ml-14">
+									className="grid grid-cols-3 place-content-center -translate-x-15 xs:!-translate-x-[.8rem] sm:!-translate-x-0 md:!translate-x-5 gap-x-6 sm:gap-x-10 medals-container s499:translate-y-10 s499:-ml-3 sm:translate-y-24 s499:mt-28 md:ml-0 -ml-14">
 									<DoubleStars style="absolute bottom-0 w-8 h-8 z-[-1] text-white" />
 									{medals.map((eachMedal, index) => (
 										<MedalCard
