@@ -38,6 +38,7 @@ import TreeLg from "../components/Tree";
 import ideaBulb from "../assets/media/images/bulb-idea.png";
 import Scribble from "../assets/media/images/arrow.png";
 import AOS from "aos";
+import Web from "../assets/media/images/metrix.png";
 
 export default function LandingPageComponent() {
 	useDocumentTitle("Home | getLinked");
@@ -123,8 +124,8 @@ export default function LandingPageComponent() {
 											</span>
 											<span>
 												<div className="flex items-center gap-x-1 sm:gap-x-2">
-													<img src={Fire} alt={Fire} className="img-fluid w-6 sm:w-13 lg:w-16" />
-													<img src={Chain} alt={Chain} className="img-fluid w-6 sm:w-13 lg:w-16" />
+													<img src={Fire} alt={getPath(Fire)} className="img-fluid w-6 sm:w-13 lg:w-16" />
+													<img src={Chain} alt={getPath(Chain)} className="img-fluid w-6 sm:w-13 lg:w-16" />
 												</div>
 											</span>
 										</span>
@@ -149,6 +150,9 @@ export default function LandingPageComponent() {
 							</div>
 							<div className="v-image-container select-none animate__bounceInRight animate__animated animate__slow">
 								<div className="user-image relative">
+									<div className="absolute z-[-1] md:scale-125">
+										<img src={Web} alt={getPath(Web)} className="img-flu" />
+									</div>
 									<Blur position="right-0 top-1/2 -translate-y-1/2" />
 									<img src={Guy} alt={getPath(Guy)} className="img-fluid" />
 									<div className="absolute flex items-center h-44 w-44 sm:h-72 sm:w-72 z-[1] top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/4 scale-150">
@@ -365,7 +369,7 @@ export default function LandingPageComponent() {
 									<div className="bar v-bar one bg-secondary"></div>
 									<div className="bar v-bar two bg-secondary"></div>
 									{logos.map(({ image }, index) => (
-										<div key={index} className="flex items-center justify-center p-3">
+										<div key={index} className="flex items-center justify-center hover:scale-110 !ease-in-out p-3">
 											<img src={image} alt={getPath(image)} className="img-fluid max-w-[7rem] w-full" />
 										</div>
 									))}
